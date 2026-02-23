@@ -4,12 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 3000",
-    "build": "vite build",
+    "build": "npm run tsc && vite build",
+    "tsc": "tsc -b",
     "preview": "vite preview",
-    "test": "vitest run",
-    "format": "biome format",
-    "lint": "biome lint",
-    "check": "biome check"
+    "test": "vitest run"
   },
   "dependencies": {
     "@t3-oss/env-core": "^0.13.8",
@@ -30,7 +28,6 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.4",
     "@netlify/vite-plugin-tanstack-start": "^1.2.3",
     "@tanstack/devtools-vite": "^0.3.11",
     "@testing-library/dom": "^10.4.0",

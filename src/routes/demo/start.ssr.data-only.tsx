@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { getPunkSongs } from '@/data/demo.punk-songs'
+// @ts-expect-error
+import { getPunkSongs } from '@/data/demo.punk-songs.js';
 
 export const Route = createFileRoute('/demo/start/ssr/data-only')({
   ssr: 'data-only',
@@ -23,7 +24,7 @@ function RouteComponent() {
           Data Only SSR - Punk Songs
         </h1>
         <ul className="space-y-3">
-          {punkSongs.map((song) => (
+          {punkSongs.map((song: {id: string; name: string; artist: string;}) => (
             <li
               key={song.id}
               className="bg-white/10 border border-white/20 rounded-lg p-4 backdrop-blur-sm shadow-md"

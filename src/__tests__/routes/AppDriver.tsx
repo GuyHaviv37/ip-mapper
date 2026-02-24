@@ -1,11 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react'
-import { vi } from 'vitest'
 import { App } from '@/routes/index'
 import { renderWithQueryClient } from '../test-utils'
-
-vi.mock('@/server-fns/ip-lookup', () => ({
-  lookupIp: vi.fn(),
-}))
 
 export class AppDriver {
   get = {

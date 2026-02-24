@@ -1,8 +1,12 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { AppDriver } from './AppDriver'
 
+vi.mock('@/server-fns/ip-lookup', () => ({
+  lookupIp: vi.fn(),
+}))
+
 describe('App', () => {
-  it('clicking Add Input 3 times creates 3 IP inputs', () => {
+  it('clicking Add Input X times creates X inputs', () => {
     const driver = new AppDriver()
     driver.render()
 

@@ -3,6 +3,7 @@ import { z } from "zod";
 export const env = createEnv({
     server: {
         SERVER_URL: z.string().url().optional(),
+        IP2LOCATION_API_KEY: z.string().min(1),
     },
     /**
      * The prefix that client-side variables must have. This is enforced both at

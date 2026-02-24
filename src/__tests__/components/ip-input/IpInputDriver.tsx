@@ -4,6 +4,11 @@ import { lookupIp } from '@/server-fns/ip-lookup'
 import type { IpLookupResponse } from '@/schemas/ip'
 import { AppDriver } from '../../routes/AppDriver'
 
+export interface Deferred {
+  resolve: (data: IpLookupResponse) => void
+  reject: (error: Error) => void
+}
+
 export class IpInputDriver {
   private appDriver = new AppDriver()
 
@@ -12,6 +17,7 @@ export class IpInputDriver {
     errorByText: (text: string) => screen.queryByText(text),
     queryErrorByText: (text: string) => screen.queryByText(text),
     findErrorByText: (text: string) => screen.findByText(text),
+    spinner: () => screen.queryByRole('status'),
     flagImage: () => screen.queryByRole('img'),
     findFlagImage: () => screen.findByRole('img'),
     time: () => screen.getByText(/\d{2}:\d{2}:\d{2}/),
@@ -34,6 +40,17 @@ export class IpInputDriver {
   mocks = {
     lookupSuccess: (data: IpLookupResponse) => {
       vi.mocked(lookupIp).mockResolvedValue(data)
+    },
+    lookupDeferred: (): Deferred => {
+      let resolve!: (data: IpLookupResponse) => void
+      let reject!: (error: Error) => void
+      vi.mocked(lookupIp).mockReturnValue(
+        new Promise((res, rej) => {
+          resolve = res
+          reject = rej
+        }),
+      )
+      return { resolve, reject }
     },
     lookupError: (message: string) => {
       vi.mocked(lookupIp).mockRejectedValue(new Error(message))

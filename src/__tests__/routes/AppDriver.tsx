@@ -6,6 +6,7 @@ export class AppDriver {
   get = {
     addInputButton: () => screen.getByRole('button', { name: /add input/i }),
     ipInputs: () => screen.queryAllByPlaceholderText('Enter IP address'),
+    inputIndex: (n: number) => screen.getByText(String(n)),
   }
 
   set = {

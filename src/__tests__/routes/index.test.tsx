@@ -13,5 +13,8 @@ describe('App', () => {
     driver.set.clickAddInputTimes(3)
 
     expect(driver.get.ipInputs()).toHaveLength(3)
+    expect(driver.get.inputIndex(1)).toBeInTheDocument()
+    expect(driver.get.inputIndex(2)).toBeInTheDocument()
+    expect(driver.get.inputIndex(3)).toBeInTheDocument()
   })
 })

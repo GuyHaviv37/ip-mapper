@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { lookupIp } from '@/server-fns/ip-lookup'
 import { IpInputDriver } from './IpInputDriver'
+import { waitFor } from '@testing-library/react'
 
 vi.mock('@/server-fns/ip-lookup', () => ({
   lookupIp: vi.fn(),
@@ -41,6 +42,24 @@ describe('IpInput', () => {
     driver.set.typeIp('8.8.8.8')
     
     expect(driver.get.errorByText('Invalid IP address format')).not.toBeInTheDocument()
+  })
+
+  it('shows loading state then resolves with result', async () => {
+    const { resolve } = driver.mocks.lookupDeferred()
+    driver.render()
+
+    driver.set.typeAndBlur('8.8.8.8')
+
+    await waitFor(() => expect(driver.get.spinner()).toBeInTheDocument())
+    expect(driver.get.input()).toBeDisabled()
+    expect(driver.get.flagImage()).not.toBeInTheDocument()
+
+    resolve({ country_code: 'US', time_zone: '-05:00' })
+
+    const flag = await driver.get.findFlagImage()
+    expect(flag).toHaveAttribute('alt', 'us')
+    expect(driver.get.spinner()).not.toBeInTheDocument()
+    expect(driver.get.input()).not.toBeDisabled()
   })
 
   it('shows country flag and time for a valid IPv4 address', async () => {

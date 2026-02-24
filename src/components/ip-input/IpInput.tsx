@@ -9,8 +9,8 @@ interface IpInputProps {
 export default function IpInput(props: IpInputProps) {
     const { index } = props
     const inputRef = useRef<HTMLInputElement>(null);
-    const { lookup, clearError, countryCode, isLoading, error } = useIpLookup();
-    const { time } = useIpInputClock({ timeZone: 'Asia/Jerusalem' });
+    const { lookup, clearError, countryCode, timeZone, isLoading, error } = useIpLookup();
+    const { time } = useIpInputClock({ utcOffset: timeZone });
 
     return (
         <div className="grid grid-cols-[50px_250px_40px_100px] gap-4 items-start">

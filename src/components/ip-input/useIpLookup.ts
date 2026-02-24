@@ -36,6 +36,7 @@ export function useIpLookup() {
     lookup,
     clearError,
     countryCode: data?.country_code?.toLowerCase() ?? null,
+    timeZone: data?.time_zone ?? null,
     isLoading,
     error,
   }

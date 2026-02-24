@@ -13,6 +13,7 @@ export const ipSchema = z
 
 export const ipLookupResponseSchema = z.object({
   country_code: z.string(),
+  time_zone: z.string(),
 })
 
 export type IpLookupResponse = z.infer<typeof ipLookupResponseSchema>

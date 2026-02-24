@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react'
 
 export const Route = createFileRoute('/')({ component: App })
 
-function App() {
+export function App() {
   const [inputsCount, setInputsCount] = useState(0)
 
   const addInputHandler = useCallback(() => {

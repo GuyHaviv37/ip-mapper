@@ -20,8 +20,8 @@
 - [x] React Query integration with query key: `[ip, <input-value>]` (shared cache)
 
 ### APIs
-- [ ] `ip2location.io` — fetch `country_code` + `timezone`
-- [ ] `Intl.DateTimeFormat` — format local time from timezone
+- [x] `ip2location.io` — fetch `country_code` + `timezone`
+- [x] `Intl.DateTimeFormat` — format local time from timezone
 - [x] `flagpedia.net` — flag icon by ISO 3166 country code
 
 ### Styling

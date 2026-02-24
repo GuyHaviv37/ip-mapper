@@ -7,7 +7,16 @@
     "build": "npm run tsc && vite build",
     "tsc": "tsc -b",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "oxlint -D correctness -D perf --deny-warnings",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged",
+    "pre-push": "npm run tsc"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "oxlint -D correctness -D perf --deny-warnings"
   },
   "dependencies": {
     "@t3-oss/env-core": "^0.13.8",
@@ -37,6 +46,9 @@
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",
     "jsdom": "^27.0.0",
+    "lint-staged": "^16.2.7",
+    "oxlint": "^1.50.0",
+    "simple-git-hooks": "^2.13.1",
     "typescript": "^5.7.2",
     "vite": "^7.1.7",
     "vitest": "^3.0.5",

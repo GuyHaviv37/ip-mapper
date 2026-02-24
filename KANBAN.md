@@ -7,22 +7,22 @@
 ## 🔲 Backlog
 
 ### UI
-- [ ] Header layout with input creator
-- [ ] IP input component
-  - [ ] Loading state
-  - [ ] Error state
-  - [ ] Disabled state
-- [ ] Local validation before searching (IP format, empty string)
-- [ ] `onBlur` → emit search
+- [x] Header layout with input creator
+- [x] IP input component
+  - [x] Loading state
+  - [x] Error state
+  - [x] Disabled state
+- [x] Local validation before searching (IP format, empty string)
+- [x] `onBlur` → emit search
 - [ ] (optional) delete IP address
 
 ### Async State
-- [ ] React Query integration with query key: `[ip, <input-value>]` (shared cache)
+- [x] React Query integration with query key: `[ip, <input-value>]` (shared cache)
 
 ### APIs
 - [ ] `ip2location.io` — fetch `country_code` + `timezone`
 - [ ] `Intl.DateTimeFormat` — format local time from timezone
-- [ ] `flagpedia.net` — flag icon by ISO 3166 country code
+- [x] `flagpedia.net` — flag icon by ISO 3166 country code
 
 ### Styling
 - [ ] Responsive layout
@@ -35,9 +35,9 @@
 - [ ] E2E smoke test (optional)
 
 ### CI/CD
-- [ ] Lefthook — pre-commit hooks (lint, tsc, test)
-- [ ] Linting setup (ESLint / Biome)
-- [ ] `tsc --noEmit` in CI
+- [x] Lefthook — pre-commit hooks (lint, tsc, test)
+- [x] Linting setup (ESLint / Biome)
+- [x] `tsc --noEmit` in CI
 - [ ] Test runner in CI
 
 ### Persistent State (optional)

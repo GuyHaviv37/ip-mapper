@@ -32,6 +32,17 @@ describe('IpInput', () => {
     expect(lookupIp).not.toHaveBeenCalled()
   })
 
+  it('clears error message when input is changed after previous validation error', async () => {
+    driver.render()
+
+    driver.set.typeAndBlur('not-an-ip')
+    expect(driver.get.errorByText('Invalid IP address format')).toBeInTheDocument()
+    
+    driver.set.typeIp('8.8.8.8')
+    
+    expect(driver.get.errorByText('Invalid IP address format')).not.toBeInTheDocument()
+  })
+
   it('shows country flag and time for a valid IPv4 address', async () => {
     driver.mocks.lookupSuccess({ country_code: 'US', time_zone: '-05:00' })
     driver.render()
@@ -44,6 +55,8 @@ describe('IpInput', () => {
     const time = await driver.get.findTime()
     expect(time).toBeInTheDocument()
   })
+
+  
 
   it('shows country flag and time for a valid IPv6 address', async () => {
     driver.mocks.lookupSuccess({ country_code: 'DE', time_zone: '+01:00' })

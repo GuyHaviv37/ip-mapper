@@ -9,7 +9,7 @@ export class IpInputDriver {
 
   get = {
     input: () => screen.getByPlaceholderText('Enter IP address'),
-    errorByText: (text: string) => screen.getByText(text),
+    errorByText: (text: string) => screen.queryByText(text),
     queryErrorByText: (text: string) => screen.queryByText(text),
     findErrorByText: (text: string) => screen.findByText(text),
     flagImage: () => screen.queryByRole('img'),

@@ -4,6 +4,8 @@ A web application that maps IP addresses to their geographic location. Enter any
 
 Built with [TanStack Start](https://tanstack.com/start), [React](https://react.dev), and [Tailwind CSS](https://tailwindcss.com/). Uses the [IP2Location](https://www.ip2location.io/) API for geolocation lookups.
 
+You can check out the app for yourselves at [guyhav-ip-mapper](https://guyhav-ip-mapper.netlify.app/)
+
 ## Prerequisites
 
 - **Node.js** >= 22

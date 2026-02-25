@@ -4,7 +4,7 @@ import { lookupIp } from '@/server-fns/ip-lookup'
 import type { IpLookupResponse } from '@/schemas/ip'
 import { AppDriver } from '../../routes/AppDriver'
 
-export interface Deferred {
+interface Deferred {
   resolve: (data: IpLookupResponse) => void
   reject: (error: Error) => void
 }

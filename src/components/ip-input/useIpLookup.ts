@@ -11,6 +11,7 @@ export function useIpLookup() {
     queryKey: ['ip-lookup', queryIp],
     queryFn: () => lookupIp({ data: queryIp! }),
     enabled: !!queryIp,
+    staleTime: 1000 * 60 * 60 * 24, // 24 hours - should be more than enough on a per session basis
   })
 
   const lookup = useCallback((ip: string) => {

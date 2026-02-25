@@ -1,44 +1,27 @@
-import { useState, useRef, useEffect } from "react";
+import { useMemo } from 'react'
+import { useNow } from '@/hooks/useNow'
+
+const formatter = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'UTC',
+  timeStyle: 'medium',
+  hour12: false,
+})
 
 function parseUtcOffset(offset: string): number | null {
-    const match = offset.match(/^([+-])(\d{2}):(\d{2})$/);
-    if (!match) return null;
-    const sign = match[1] === "+" ? 1 : -1;
-    return sign * (parseInt(match[2]) * 60 + parseInt(match[3]));
+  const match = offset.match(/^([+-])(\d{2}):(\d{2})$/)
+  if (!match) return null
+  const sign = match[1] === '+' ? 1 : -1
+  return sign * (parseInt(match[2]) * 60 + parseInt(match[3]))
 }
 
 export const useIpInputClock = (props: { utcOffset: string | null }) => {
-    const { utcOffset } = props;
-    const [time, setTime] = useState<string>();
-    const interval = useRef<NodeJS.Timeout | null>(null);
+  const now = useNow()
 
-    useEffect(() => {
-        if (!utcOffset) return;
+  const offsetMs = useMemo(() => {
+    if (!props.utcOffset) return null
+    const minutes = parseUtcOffset(props.utcOffset)
+    return minutes != null ? minutes * 60_000 : null
+  }, [props.utcOffset])
 
-        const offsetMinutes = parseUtcOffset(utcOffset);
-        if (offsetMinutes == null) return;
-
-        const offsetMs = offsetMinutes * 60_000;
-        const formatter = new Intl.DateTimeFormat("en-US", {
-            timeZone: "UTC",
-            timeStyle: "medium",
-            hour12: false,
-        });
-
-        interval.current = setInterval(() => {
-            // Date.now() returns the number of ms since the Unix epoch, in UTC time (zero offset).
-            const shifted = new Date(Date.now() + offsetMs);
-            setTime(formatter.format(shifted));
-        }, 250);
-
-        return () => {
-            if (interval.current) {
-                clearInterval(interval.current);
-            }
-        };
-    }, [utcOffset]);
-
-    return {
-        time,
-    };
-};
+  return { time: offsetMs == null ? undefined : formatter.format(new Date(now + offsetMs)) }
+}

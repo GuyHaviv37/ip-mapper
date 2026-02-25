@@ -6,11 +6,11 @@ import { useCallback, useState } from 'react'
 export const Route = createFileRoute('/')({ component: App })
 
 export function App() {
-  const [inputsCount, setInputsCount] = useState(0)
+  const [inputIds, setInputIds] = useState<string[]>([])
 
   const addInputHandler = useCallback(() => {
-    setInputsCount(prevInputCount => prevInputCount + 1)
-  }, [setInputsCount])
+    setInputIds(prevInputIds => [...prevInputIds, crypto.randomUUID()])
+  }, [setInputIds])
 
   return (
     <div className="min-h-screen">
@@ -21,7 +21,7 @@ export function App() {
         </p>
         <AddInputButton onAddInput={addInputHandler} />
         <div className="mt-8 flex flex-col items-center gap-2">
-          {Array.from({ length: inputsCount }).map((_, index) => <IpInput key={index} index={index} />)}
+          {inputIds.map((id, index) => <IpInput key={id} index={index} />)}
         </div>
       </section>
     </div>

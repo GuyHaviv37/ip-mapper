@@ -13,7 +13,7 @@ export default function IpInput(props: IpInputProps) {
     const { time } = useIpInputClock({ utcOffset: timeZone });
 
     return (
-        <div className="grid grid-cols-[50px_250px_40px_100px] gap-4 items-start">
+        <div className="grid grid-cols-[minmax(30px,50px)_minmax(120px,250px)_minmax(24px,40px)_minmax(60px,100px)] gap-4 items-center">
             <p className="p-2 rounded-xl">{index + 1}</p>
             <div>
                 <label htmlFor={`ip-input-${index}`} className="sr-only">

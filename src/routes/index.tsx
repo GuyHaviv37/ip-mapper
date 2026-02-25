@@ -19,6 +19,9 @@ export function App() {
         <p className="text-lg">
           Map IP addresses to countries and timezones
         </p>
+        <p className="text-xs">
+          * Times do not take DST into account.
+        </p>
         <AddInputButton onAddInput={addInputHandler} />
         <div className="mt-8 flex flex-col items-center gap-2">
           {inputIds.map((id, index) => <IpInput key={id} index={index} />)}

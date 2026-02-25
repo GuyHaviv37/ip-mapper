@@ -9,14 +9,18 @@ interface IpInputProps {
 export default function IpInput(props: IpInputProps) {
     const { index } = props
     const inputRef = useRef<HTMLInputElement>(null);
-    const { lookup, clearError, countryCode, timeZone, isLoading, error } = useIpLookup();
+    const { lookup, clearError, countryCode, countryName, timeZone, isLoading, error } = useIpLookup();
     const { time } = useIpInputClock({ utcOffset: timeZone });
 
     return (
         <div className="grid grid-cols-[50px_250px_40px_100px] gap-4 items-start">
             <p className="p-2 rounded-xl">{index + 1}</p>
             <div>
+                <label htmlFor={`ip-input-${index}`} className="sr-only">
+                    IP address input {index + 1}
+                </label>
                 <input
+                    id={`ip-input-${index}`}
                     ref={inputRef}
                     type="text"
                     className={`w-full p-2 rounded-md border ${error ? 'border-red-500' : 'border-gray-300'}`}
@@ -29,7 +33,7 @@ export default function IpInput(props: IpInputProps) {
             </div>
 
             {isLoading && (
-                <div role="status" className="p-2 flex items-center justify-center">
+                <div role="status" aria-label="Loading..." className="p-2 flex items-center justify-center">
                     <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" />
                 </div>
             )}
@@ -47,7 +51,7 @@ export default function IpInput(props: IpInputProps) {
                     <img
                         src={`https://flagcdn.com/w40/${countryCode}.png`}
                         width="40"
-                        alt={countryCode} />
+                        alt={countryName ?? countryCode} />
                 </picture>
             )}
 

@@ -54,22 +54,22 @@ describe('IpInput', () => {
     expect(driver.get.input()).toBeDisabled()
     expect(driver.get.flagImage()).not.toBeInTheDocument()
 
-    resolve({ country_code: 'US', time_zone: '-05:00' })
+    resolve({ country_code: 'US', country_name: 'United States', time_zone: '-05:00' })
 
     const flag = await driver.get.findFlagImage()
-    expect(flag).toHaveAttribute('alt', 'us')
+    expect(flag).toHaveAttribute('alt', 'United States')
     expect(driver.get.spinner()).not.toBeInTheDocument()
     expect(driver.get.input()).not.toBeDisabled()
   })
 
   it('shows country flag and time for a valid IPv4 address', async () => {
-    driver.mocks.lookupSuccess({ country_code: 'US', time_zone: '-05:00' })
+    driver.mocks.lookupSuccess({ country_code: 'US', country_name: 'United States', time_zone: '-05:00' })
     driver.render()
 
     driver.set.typeAndBlur('8.8.8.8')
 
     const flag = await driver.get.findFlagImage()
-    expect(flag).toHaveAttribute('alt', 'us')
+    expect(flag).toHaveAttribute('alt', 'United States')
 
     const time = await driver.get.findTime()
     expect(time).toBeInTheDocument()
@@ -78,13 +78,13 @@ describe('IpInput', () => {
   
 
   it('shows country flag and time for a valid IPv6 address', async () => {
-    driver.mocks.lookupSuccess({ country_code: 'DE', time_zone: '+01:00' })
+    driver.mocks.lookupSuccess({ country_code: 'DE', country_name: 'Germany', time_zone: '+01:00' })
     driver.render()
 
     driver.set.typeAndBlur('2001:4860:4860::8888')
 
     const flag = await driver.get.findFlagImage()
-    expect(flag).toHaveAttribute('alt', 'de')
+    expect(flag).toHaveAttribute('alt', 'Germany')
 
     const time = await driver.get.findTime()
     expect(time).toBeInTheDocument()

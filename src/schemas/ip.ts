@@ -13,6 +13,7 @@ export const ipSchema = z
 
 export const ipLookupResponseSchema = z.object({
   country_code: z.string(),
+  country_name: z.string(),
   time_zone: z.string(),
 })
 
